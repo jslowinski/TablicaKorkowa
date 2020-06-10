@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "541318123535",
+    "firebase_url": "https://tablica-korkowa.firebaseio.com",
+    "project_id": "tablica-korkowa",
+    "storage_bucket": "tablica-korkowa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:541318123535:android:9d57a1d97a9d1f5f83d37a",
+        "android_client_info": {
+          "package_name": "com.example.tablicakorkowa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "541318123535-71rda9dali3cq74ibv6gj3f1ulcdmf1n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQFT7d2ROvNQm8f6N4fCi0VVvBjYnqv1w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "541318123535-71rda9dali3cq74ibv6gj3f1ulcdmf1n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
