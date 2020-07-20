@@ -1,4 +1,4 @@
-package com.example.tablicakorkowa.api.Users
+package com.example.tablicakorkowa.data.api.Users
 
 data class RequestRegister (
     var firstname: String,
@@ -6,6 +6,7 @@ data class RequestRegister (
     var telephone: String,
     var email: String,
     var accountID: String,
-    var avatar: String
+    var avatar: String,
+    var provider: String
 )
 

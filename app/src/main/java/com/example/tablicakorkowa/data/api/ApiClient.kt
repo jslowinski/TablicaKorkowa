@@ -1,4 +1,4 @@
-package com.example.tablicakorkowa.api
+package com.example.tablicakorkowa.data.api
 
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -8,7 +8,7 @@ class ApiClient {
 
     companion object{
 
-        private const val BASE_URL = "http://192.168.99.102:3001/"
+        private const val BASE_URL = "http://192.168.99.104:3001/"
 
         private val retrofit by lazy {
             Retrofit.Builder()

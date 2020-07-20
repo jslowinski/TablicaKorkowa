@@ -1,5 +1,6 @@
 package com.example.tablicakorkowa
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.opengl.Visibility
@@ -87,6 +88,7 @@ class ForgotActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun buttonEffect(button: View) {
         button.setOnTouchListener { v, event ->
             when (event.action) {

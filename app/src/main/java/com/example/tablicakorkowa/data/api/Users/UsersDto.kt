@@ -1,4 +1,4 @@
-package com.example.tablicakorkowa.api.Users
+package com.example.tablicakorkowa.data.api.Users
 
 data class UsersDto (
     var id: String,
