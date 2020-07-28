@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import com.example.tablicakorkowa.SignInActivity.Companion.auth
 import com.example.tablicakorkowa.data.api.Users.RequestRegister
 import com.example.tablicakorkowa.data.api.Users.ResponseUser
 import com.example.tablicakorkowa.databinding.FragmentSingUpBinding
@@ -34,7 +35,6 @@ import timber.log.Timber
 class SingUpFragment : Fragment() {
 
     // Private Properties
-    private lateinit var auth: FirebaseAuth
     private val viewModel by lazy { ViewModelProviders.of(this).get(SignUpViewModel::class.java) }
     private var disposable: Disposable? = null
 
@@ -47,7 +47,6 @@ class SingUpFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        auth = FirebaseAuth.getInstance()
         val binding = FragmentSingUpBinding.inflate(inflater, container, false)
         context ?: return binding.root
 
@@ -75,25 +74,6 @@ class SingUpFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         buttonEffect(signUpBackButton)
     }
-
-
-    @SuppressLint("ClickableViewAccessibility")
-    private fun buttonEffect(button: View) {
-        button.setOnTouchListener { v, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    v.background.setColorFilter(-0x1f0b8adf, PorterDuff.Mode.SRC_ATOP)
-                    v.invalidate()
-                }
-                MotionEvent.ACTION_UP -> {
-                    v.background.clearColorFilter()
-                    v.invalidate()
-                }
-            }
-            false
-        }
-    }
-
 
     private fun signUpUser(){
                 if (validateCorrectEmail() or validateName() or validateLastName() or validatePassword()){
@@ -141,8 +121,6 @@ class SingUpFragment : Fragment() {
 
     //endregion
 
-    //region validate
-
     private fun bindRegisterUser(user: RequestRegister){
         viewModel.registerUser(user)
     }
@@ -165,6 +143,8 @@ class SingUpFragment : Fragment() {
         Snackbar.make(rootSignUp, error.getMessage(), Snackbar.LENGTH_SHORT).show()
     }
 
+
+    // Validate TextFields
     private fun validateCorrectEmail(): Boolean{
         return if(!Patterns.EMAIL_ADDRESS.matcher(signUpEmail.text.toString()).matches()){
             textInputLayout3.error = "Wprowadź poprawny adres email"
@@ -204,6 +184,4 @@ class SingUpFragment : Fragment() {
             false
         }
     }
-
-    //endregion
 }

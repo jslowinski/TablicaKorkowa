@@ -1,24 +1,74 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:windowActionBar">true</item>
         <item name="android:windowNoTitle">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
     <style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/mainColor</item>
+        <item name="android:textColor">@color/backgroundSplash</item>
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="EditTextTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorControlActivated">@color/mainColor</item>
-        <item name="colorControlHighlight">@color/mainColor</item>
+    <style name="EditTextTheme" parent="Widget.Design.TextInputLayout">
+        <!--EditText hint color-->
+        <item name="hintTextColor">@color/backgroundSplash</item>
+        <!-- TextInputLayout text color-->
+        <item name="colorControlActivated">@color/backgroundSplash</item>
+        <!-- EditText line color when EditText on-focus-->
+        <item name="colorControlHighlight">@color/backgroundSplash</item>
+        <!-- EditText line color when EditText  in un-focus-->
+        <item name="colorControlNormal">@color/backgroundSplash</item>
     </style>
+
+    <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/backgroundSplash</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <!--EditText hint color-->
+        <item name="hintTextColor">@color/backgroundSplash</item>
+        <!-- TextInputLayout text color-->
+        <item name="colorControlActivated">@color/backgroundSplash</item>
+        <!-- EditText line color when EditText on-focus-->
+        <item name="colorControlHighlight">@color/backgroundSplash</item>
+        <!-- EditText line color when EditText  in un-focus-->
+        <item name="colorControlNormal">@color/backgroundSplash</item>
+    </style>
+
+
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    <!-- Optional, on Android 5+ you can modify the colorPrimaryDark color to match the windowBackground color for further branding-->
+    <!-- <item name="colorPrimaryDark">@android:color/white</item> -->
+    </style>
+
+
+
+
+
+
+    <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputLayout</item>
+        <!--<item name="hintTextColor">?attr/colorOnSurface</item>-->   //When you added this line it will applies only one color in normal and activate state i.e colorOnSurface color
+    </style>
+
+    <style name="ThemeOverlay.App.TextInputLayout" parent="">
+        <item name="colorPrimary">@color/backgroundSplash</item>  //Activated color
+        <item name="colorOnSurface">@color/backgroundSplash</item>    //Normal color
+        <item name="colorError">@color/colorPrimary</item>        //Error color
+
+
+        <!--Note: When setting a materialThemeOverlay on a custom TextInputLayout style, don’t forget to set editTextStyle to either a @style/Widget.MaterialComponents.TextInputEditText.* style or to a custom one that inherits from that.
+        The TextInputLayout styles set materialThemeOverlay that overrides editTextStyle with the specific TextInputEditText style needed. Therefore, you don’t need to specify a style tag on the edit text.-->
+        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox</item>
+    </style>
+
+
 
 
 

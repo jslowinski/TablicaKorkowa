@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.tablicakorkowa.databinding.FragmentSingInBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
@@ -53,6 +52,9 @@ class SingInFragment : Fragment() {
             GoogleSignIn.getClient(it, gso)
         }!!
 
+//        val bindingg: MartianDataBinding = DataBindingUtil.inflate(
+//            inflater, R.layout.fragment_sing_in, container, false
+//        )
         val binding = FragmentSingInBinding.inflate(inflater, container, false)
         context ?: return binding.root
 
@@ -64,7 +66,9 @@ class SingInFragment : Fragment() {
             view.findNavController().navigate(SingInFragmentDirections.actionSingInFragmentToSingUpFragment())
         }
 
-
+        binding.forgotText.setOnClickListener { view: View ->
+            view.findNavController().navigate(SingInFragmentDirections.actionSingInFragmentToForgotFragment())
+        }
 
 
         // Inflate the layout for this fragment
@@ -78,12 +82,8 @@ class SingInFragment : Fragment() {
         }
 
         setGooglePlusButtonText(google_button, "Dołącz z Google")
-
-        forgotText.setOnClickListener {
-            startActivity(Intent(context, ForgotActivity::class.java))
-        }
-
     }
+
 
     private fun setGooglePlusButtonText(
         signInButton: SignInButton,
@@ -150,7 +150,7 @@ class SingInFragment : Fragment() {
         }
 
         activity?.let {
-            auth.signInWithEmailAndPassword(signInEmail.text.toString(), signInPassword.text.toString())
+            auth.signInWithEmailAndPassword(textInputLayout.editText?.text.toString(), textInputLayout2.editText?.text.toString())
                 .addOnCompleteListener(it, OnCompleteListener<AuthResult>() { task ->
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
@@ -176,7 +176,7 @@ class SingInFragment : Fragment() {
 
 
     private fun validateCorrectEmail(): Boolean{
-        return if(!Patterns.EMAIL_ADDRESS.matcher(signInEmail.text.toString()).matches()){
+        return if(!Patterns.EMAIL_ADDRESS.matcher(textInputLayout.editText?.text.toString()).matches()){
             textInputLayout.error = "Wprowadź poprawny adres email"
             true
         } else {
@@ -186,7 +186,7 @@ class SingInFragment : Fragment() {
     }
 
     private fun validatePassword(): Boolean{
-        return if(signInPassword.text.toString().isEmpty()){
+        return if(textInputLayout2.editText?.text.toString().isEmpty()){
             textInputLayout2.error = "Pole nie może być puste"
             true
         } else {
@@ -196,13 +196,12 @@ class SingInFragment : Fragment() {
     }
 
     override fun onStart() {
+        val user = auth.currentUser
+        updateUI(user)
         super.onStart()
-        val currentUser = auth.currentUser
-        updateUI(currentUser)
     }
 
     private fun updateUI(currentUser: FirebaseUser?) {
-
         if (currentUser != null){
             startActivity(Intent(context,MainActivity::class.java))
             requireActivity().finish()
