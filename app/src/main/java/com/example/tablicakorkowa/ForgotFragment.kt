@@ -22,8 +22,8 @@ class ForgotFragment : Fragment() {
 
         val binding = FragmentForgotBinding.inflate(inflater, container, false)
 
-        binding.forgotButton.setOnClickListener {view : View ->
-            view.findNavController().navigate(ForgotFragmentDirections.actionForgotFragmentToSingInFragment())
+        binding.forgotButton.setOnClickListener {view: View ->
+            view.findNavController().popBackStack()
         }
 
         binding.buttonReset.setOnClickListener {view: View ->

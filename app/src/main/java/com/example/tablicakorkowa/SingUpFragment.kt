@@ -55,11 +55,11 @@ class SingUpFragment : Fragment() {
         }
 
         binding.signUpBackButton.setOnClickListener { view: View ->
-            view.findNavController().navigate(SingUpFragmentDirections.actionSingUpFragmentToSingInFragment())
+            view.findNavController().popBackStack()
         }
 
         binding.signUpBackText.setOnClickListener { view: View ->
-            view.findNavController().navigate(SingUpFragmentDirections.actionSingUpFragmentToSingInFragment())
+            view.findNavController().popBackStack()
         }
 
 
