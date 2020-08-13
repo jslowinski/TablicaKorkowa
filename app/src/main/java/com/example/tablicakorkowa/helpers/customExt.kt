@@ -10,6 +10,7 @@ import androidx.annotation.LayoutRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.google.firebase.auth.FirebaseAuth
 
 
 fun View.show(show: Boolean) {
@@ -28,6 +29,10 @@ inline fun <T> LiveData<T>.subscribe(lifecycle: LifecycleOwner, crossinline onCh
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
+}
+
+fun getUid(): String {
+    return FirebaseAuth.getInstance().uid.toString()
 }
 
 

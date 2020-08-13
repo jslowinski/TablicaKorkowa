@@ -1,18 +1,11 @@
 package com.example.tablicakorkowa.viewmodel
 
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
-import android.util.Log
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.tablicakorkowa.MainActivity
 import com.example.tablicakorkowa.data.api.ApiClient
-import com.example.tablicakorkowa.data.api.ApiService
-import com.example.tablicakorkowa.data.api.Users.RequestRegister
-import com.example.tablicakorkowa.data.api.Users.ResponseUser
+import com.example.tablicakorkowa.data.api.model.RequestRegister
+import com.example.tablicakorkowa.data.api.model.ResponseUser
 import com.example.tablicakorkowa.helpers.ErrorMessage
 import com.example.tablicakorkowa.helpers.observeOnMainThread
 import com.example.tablicakorkowa.helpers.showErrorMessages
@@ -20,7 +13,7 @@ import com.example.tablicakorkowa.helpers.subscribeOnIOThread
 import io.reactivex.disposables.Disposable
 import timber.log.Timber
 
-interface SignUpViewModelInterface {
+interface RegisterViewModelInterface {
     val user: LiveData<ResponseUser>
     val errors: LiveData<ErrorMessage>
 
@@ -28,7 +21,7 @@ interface SignUpViewModelInterface {
 }
 
 
-class SignUpViewModel : ViewModel(), SignUpViewModelInterface {
+class Register : ViewModel(), RegisterViewModelInterface {
 
     // Public Properties
 

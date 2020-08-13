@@ -2,29 +2,22 @@ package com.example.tablicakorkowa
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.PorterDuff
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.example.tablicakorkowa.SignInActivity.Companion.auth
-import com.example.tablicakorkowa.data.api.Users.RequestRegister
-import com.example.tablicakorkowa.data.api.Users.ResponseUser
+import com.example.tablicakorkowa.data.api.model.RequestRegister
+import com.example.tablicakorkowa.data.api.model.ResponseUser
 import com.example.tablicakorkowa.databinding.FragmentSingUpBinding
-import com.google.firebase.auth.FirebaseAuth
 import com.example.tablicakorkowa.helpers.*
-import com.example.tablicakorkowa.viewmodel.SignUpViewModel
+import com.example.tablicakorkowa.viewmodel.Register
 import com.google.android.material.snackbar.Snackbar
-import com.jakewharton.rxbinding2.view.clicks
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_sing_up.*
 import kotlinx.android.synthetic.main.fragment_sing_up.textInputLayout
@@ -35,7 +28,7 @@ import timber.log.Timber
 class SingUpFragment : Fragment() {
 
     // Private Properties
-    private val viewModel by lazy { ViewModelProviders.of(this).get(SignUpViewModel::class.java) }
+    private val viewModel by lazy { ViewModelProviders.of(this).get(Register::class.java) }
     private var disposable: Disposable? = null
 
 

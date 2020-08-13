@@ -8,7 +8,7 @@ class ApiClient {
 
     companion object{
 
-        private const val BASE_URL = "http://192.168.99.104:3001/"
+        private const val BASE_URL = "http://192.168.99.102:3001/"
 
         private val retrofit by lazy {
             Retrofit.Builder()

@@ -11,8 +11,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import com.example.tablicakorkowa.data.api.model.RequestRegister
 import com.example.tablicakorkowa.databinding.FragmentSingInBinding
+import com.example.tablicakorkowa.viewmodel.Register
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -24,6 +27,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.fragment_sing_in.*
+import kotlinx.android.synthetic.main.fragment_sing_in.textInputLayout
+import kotlinx.android.synthetic.main.fragment_sing_in.textInputLayout2
 import timber.log.Timber
 
 
@@ -35,6 +40,8 @@ class SingInFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     lateinit var gso: GoogleSignInOptions
     private lateinit var googleSignInClient: GoogleSignInClient
+
+    private val viewModel by lazy { ViewModelProviders.of(this).get(Register::class.java) }
 
 
 
@@ -116,7 +123,17 @@ class SingInFragment : Fragment() {
                     // Google Sign In was successful, authenticate with Firebase
                     val account = task.getResult(ApiException::class.java)!!
                     Log.d("SignInActivity", "firebaseAuthWithGoogle:" + account.id)
-                    firebaseAuthWithGoogle(account.idToken!!)
+                    Timber.e(account.givenName)
+                    val users = RequestRegister(
+                        account.givenName.toString(),
+                        account.familyName.toString(),
+                        "",
+                        account.email.toString(),
+                        account.idToken.toString(),
+                        account.photoUrl.toString(),
+                        "google"
+                    )
+                    firebaseAuthWithGoogle(account.idToken!!, users)
                 } catch (e: ApiException) {
                     // Google Sign In failed, update UI appropriately
                     Log.w("SignInActivity", "Google sign in failed", e)
@@ -127,7 +144,7 @@ class SingInFragment : Fragment() {
         }
     }
 
-    private fun firebaseAuthWithGoogle(idToken: String) {
+    private fun firebaseAuthWithGoogle(idToken: String, user: RequestRegister) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         activity?.let {
             auth.signInWithCredential(credential)
@@ -135,6 +152,13 @@ class SingInFragment : Fragment() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("SignInActivity", "signInWithCredential:success")
+                        val isNewUser = task.result?.additionalUserInfo?.isNewUser!!
+                        if (isNewUser) {
+                            user.accountID = task.result!!.user!!.uid
+                            bindRegisterUser(user)
+                        } else {
+                            Timber.e("Old User")
+                        }
                         updateUI(auth.currentUser)
                     } else {
                         // If sign in fails, display a message to the user.
@@ -142,6 +166,10 @@ class SingInFragment : Fragment() {
                     }
                 })
         }
+    }
+
+    private fun bindRegisterUser(user: RequestRegister){
+        viewModel.registerUser(user)
     }
 
     private fun doLogin() {
