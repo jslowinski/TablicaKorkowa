@@ -13,8 +13,8 @@ data class UserDto (
     var telephone: String,
     @SerializedName("email")
     var email: String,
-    @SerializedName("accountID")
-    var accountID: String,
+    @SerializedName("accountId")
+    var accountId: String,
     @SerializedName("avatar")
     var avatar: String,
     @SerializedName("provider")

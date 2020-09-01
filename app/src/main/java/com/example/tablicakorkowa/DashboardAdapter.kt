@@ -12,12 +12,12 @@ class DashboardAdapter: ListAdapter<String, DashboardAdapter.ViewHolder>(DIFF_CA
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(android.R.layout.simple_list_item_1, parent, false)
+        val view = inflater.inflate(R.layout.list_item_offert, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemView.findViewById<TextView>(android.R.id.text1).text = getItem(position)
+        holder.itemView.findViewById<TextView>(R.id.offert_title).text = getItem(position)
     }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view)

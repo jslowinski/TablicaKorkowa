@@ -85,7 +85,16 @@ dependencies {
     // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
-    //endregion
+    // Room
+
+    kapt "android.arch.persistence.room:compiler:1.1.1"
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    implementation "android.arch.persistence.room:rxjava2:1.1.1"
+
+    // FastAdapter
+
+    implementation "com.mikepenz:fastadapter:4.1.1"
+    implementation "com.mikepenz:fastadapter-commons:3.2.9"
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
@@ -98,4 +107,5 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
 }

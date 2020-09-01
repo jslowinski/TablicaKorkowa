@@ -116,9 +116,11 @@ class SingInFragment : Fragment() {
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
+            Timber.e("SUKCES")
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             val exception = task.exception
             if (task.isSuccessful) {
+                Timber.e("SUKCES 2")
                 try {
                     // Google Sign In was successful, authenticate with Firebase
                     val account = task.getResult(ApiException::class.java)!!
@@ -139,6 +141,7 @@ class SingInFragment : Fragment() {
                     Log.w("SignInActivity", "Google sign in failed", e)
                 }
             } else {
+                Timber.e("BLAD")
                 Log.w("SignInActivity", exception.toString() + "   " + requestCode)
             }
         }

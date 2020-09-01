@@ -29,6 +29,7 @@ class ProfilFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        bindUIUser()
 
         Log.d("NotificationsFragment", "onCreate")
     }
@@ -37,7 +38,6 @@ class ProfilFragment : Fragment() {
         binding = FragmentProfilBinding.inflate(inflater, container, false)
 
         bindUIData()
-        bindUIUser()
 
         binding.profileSaveButton.setOnClickListener{
             updateUserAction()
