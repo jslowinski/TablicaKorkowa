@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.list_item_offert.view.*
 import timber.log.Timber
 
-class DashboardListAdapter(model: CardsDto) : ModelAbstractItem<CardsDto, DashboardListAdapter.CardsViewHolder>(model){
+open class DashboardListAdapter(model: CardsDto) : ModelAbstractItem<CardsDto, DashboardListAdapter.CardsViewHolder>(model){
 
     override val layoutRes: Int
         get() = R.layout.list_item_offert
@@ -29,10 +29,6 @@ class DashboardListAdapter(model: CardsDto) : ModelAbstractItem<CardsDto, Dashbo
 
     class CardsViewHolder(itemView: View) : FastAdapter.ViewHolder<DashboardListAdapter>(itemView){
 
-        private val apiService by lazy {
-            ApiClient.create()
-        }
-
         @SuppressLint("CheckResult", "SetTextI18n")
         override fun bindView(item: DashboardListAdapter, payloads: MutableList<Any>) {
             val model = item.model
@@ -42,7 +38,8 @@ class DashboardListAdapter(model: CardsDto) : ModelAbstractItem<CardsDto, Dashbo
             itemView.offert_price.text = "${model.price} zł"
             itemView.offert_subject.text = model.subjectID
 
-            Picasso.get().load(model.userAvatar).into(itemView.offert_photo)
+//            Picasso.get().load(model.userAvatar).fit().centerCrop().into(itemView.offert_photo)
+            Glide.with(itemView).load(model.userAvatar).fitCenter().centerCrop().placeholder(R.drawable.user_avatar).into(itemView.offert_photo)
 
 
         }

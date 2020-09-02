@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.tablicakorkowa.adapters.DashboardListAdapter
 import com.example.tablicakorkowa.data.api.ApiClient
 import com.example.tablicakorkowa.data.api.model.cards.CardsDto
 import com.example.tablicakorkowa.data.api.model.cards.CardsListAdapterData
@@ -12,6 +13,7 @@ import com.example.tablicakorkowa.helpers.ErrorMessage
 import com.example.tablicakorkowa.helpers.observeOnMainThread
 import com.example.tablicakorkowa.helpers.showErrorMessages
 import com.example.tablicakorkowa.helpers.subscribeOnIOThread
+import com.mikepenz.fastadapter.adapters.ItemAdapter
 import io.reactivex.disposables.Disposable
 import timber.log.Timber
 
@@ -64,6 +66,8 @@ class DashboardViewModel : ViewModel(), DashboardViewModelInterface{
                 {result ->
                     cardsData.value = result
                     for (i in result.indices){
+                        cardsData.value!![i].isOnlineString = cardsData.value!![i].isOnline.toString()
+                        cardsData.value!![i].isDriveString = cardsData.value!![i].isAbleToDrive.toString()
                         apiService.userProfile(result[i].userId)
                             .subscribeOnIOThread()
                             .observeOnMainThread()
@@ -80,6 +84,17 @@ class DashboardViewModel : ViewModel(), DashboardViewModelInterface{
                 },
                 {error -> Timber.e(error)}
             )
+    }
+
+    fun filterCards(itemAdapter: ItemAdapter<DashboardListAdapter>, city: String, isOnline: String, isDrive: String, subject: String){
+        itemAdapter.filter(city)
+        itemAdapter.itemFilter.filterPredicate =
+            { item: DashboardListAdapter, constraint: CharSequence? ->
+
+                item.model.city.contains(city, ignoreCase = true) and
+                item.model.isOnlineString.contains(isOnline, ignoreCase = true) and
+                item.model.isDriveString.contains(isDrive, ignoreCase = true)
+            }
     }
 
     override fun onCleared() {
