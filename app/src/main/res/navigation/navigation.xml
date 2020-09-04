@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_singUpFragment_to_singInFragment"
             app:destination="@id/singInFragment" />
+        <action
+            android:id="@+id/action_singUpFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
     </fragment>
     <fragment
         android:id="@+id/forgotFragment"

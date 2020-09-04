@@ -3,6 +3,7 @@ package com.example.tablicakorkowa
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import android.widget.CheckBox
 import android.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +23,7 @@ import com.example.tablicakorkowa.adapters.DashboardListAdapter
 import com.example.tablicakorkowa.data.api.model.JsonFile
 import com.example.tablicakorkowa.data.api.model.cards.CardsDto
 import com.example.tablicakorkowa.databinding.FragmentDashboardBinding
+import com.example.tablicakorkowa.helpers.hideProgress
 import com.example.tablicakorkowa.helpers.subscribe
 import com.example.tablicakorkowa.viewmodel.DashboardViewModel
 import com.google.gson.Gson
@@ -35,15 +38,17 @@ class DashboardFragment : Fragment() {
 
     private lateinit var binding: FragmentDashboardBinding
 
-    private val viewModel by lazy {
-        ViewModelProviders.of(this).get(DashboardViewModel::class.java)
-    }
+    private val viewModel: DashboardViewModel by viewModels()
 
     private val itemAdapter = ItemAdapter<DashboardListAdapter>()
 
     private val fastAdapter = FastAdapter.with(itemAdapter)
 
     private var menuOption = false
+
+    private lateinit var mHandler: Handler
+
+    private lateinit var mRunnable:Runnable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,10 +70,7 @@ class DashboardFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             itemAnimator = null
             adapter = fastAdapter
-
         }
-
-
 
         binding.menuButton.setOnClickListener {
             if (!menuOption){
@@ -96,28 +98,20 @@ class DashboardFragment : Fragment() {
             viewModel.filterCards(itemAdapter, binding.searchListCity.text.toString(), binding.checkBox2.isChecked.toString(), binding.checkBox3.isChecked.toString(), "nie")
         }
 
-        binding.searchList.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                itemAdapter.filter(newText)
-                itemAdapter.itemFilter.filterPredicate =
-                    { item: DashboardListAdapter, constraint: CharSequence? ->
-                        item.model.title.contains(
-                            constraint.toString(),
-                            ignoreCase = true
-                        ) or item.model.city.contains(constraint.toString(), ignoreCase = true)
-                    }
-
-                return true
-            }
-        })
+        search()
 
         readJson()
-        val adapter = ArrayAdapter<String>(requireContext(), R.layout.city_list,cityName)
-        binding.searchListCity.setAdapter(adapter)
+
+        mHandler = Handler()
+
+        binding.cardsListSwipeRefresh.setOnRefreshListener {
+            mRunnable = Runnable {
+                itemAdapter.clear()
+                bindUICards()
+                bindUIData()
+            }
+            mHandler.post(mRunnable)
+        }
 
         return binding.root
     }
@@ -129,10 +123,12 @@ class DashboardFragment : Fragment() {
 
     private fun bindUIData() {
         viewModel.cards.subscribe(this, ::addAdapterItem)
+        hideProgress(binding.cardsListSwipeRefresh)
     }
 
     private fun addAdapterItem(model: List<CardsDto>) {
-        val items = model.map {
+        val sortedModel = model.sortedBy { it.title }
+        val items = sortedModel.map {
             DashboardListAdapter(it)
         }
 
@@ -159,5 +155,29 @@ class DashboardFragment : Fragment() {
         val data = gson.fromJson(text, Array<JsonFile>::class.java)
         for (i in data.indices)
             cityName.add(data[i].name)
+
+        val adapter = ArrayAdapter<String>(requireContext(), R.layout.city_list,cityName)
+        binding.searchListCity.setAdapter(adapter)
+    }
+
+    private fun search(){
+        binding.searchList.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                itemAdapter.filter(newText)
+                itemAdapter.itemFilter.filterPredicate =
+                    { item: DashboardListAdapter, constraint: CharSequence? ->
+                        item.model.title.contains(
+                            constraint.toString(),
+                            ignoreCase = true
+                        ) or item.model.city.contains(constraint.toString(), ignoreCase = true)
+                    }
+
+                return true
+            }
+        })
     }
 }

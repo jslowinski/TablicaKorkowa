@@ -29,6 +29,9 @@ interface ApiService {
     @GET("cards/{id}")
     fun getSingleCard(@Path("id") id: String?): Observable<List<CardsDto>>
 
+    @GET("cards/UserID/{id}")
+    fun getUserCard(@Path("id") id: String?): Observable<List<CardsDto>>
+
 //    Subjects
 //    @GET("subject")
 }

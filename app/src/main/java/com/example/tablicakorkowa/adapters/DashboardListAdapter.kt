@@ -39,7 +39,10 @@ open class DashboardListAdapter(model: CardsDto) : ModelAbstractItem<CardsDto, D
             itemView.offert_subject.text = model.subjectID
 
 //            Picasso.get().load(model.userAvatar).fit().centerCrop().into(itemView.offert_photo)
-            Glide.with(itemView).load(model.userAvatar).fitCenter().centerCrop().placeholder(R.drawable.user_avatar).into(itemView.offert_photo)
+            model.let { model ->
+                Glide.with(itemView).load(model.userAvatar).fitCenter().centerCrop().placeholder(R.drawable.user_avatar).into(itemView.offert_photo)
+            }
+
 
 
         }

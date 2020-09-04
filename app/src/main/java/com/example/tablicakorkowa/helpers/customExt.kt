@@ -10,6 +10,7 @@ import androidx.annotation.LayoutRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -51,4 +52,12 @@ fun buttonEffect(button: View) {
         }
         false
     }
+}
+
+fun showProgress(swipeRefreshLayout: SwipeRefreshLayout){
+    swipeRefreshLayout.isRefreshing = true
+}
+
+fun hideProgress(swipeRefreshLayout: SwipeRefreshLayout){
+    swipeRefreshLayout.isRefreshing = false
 }

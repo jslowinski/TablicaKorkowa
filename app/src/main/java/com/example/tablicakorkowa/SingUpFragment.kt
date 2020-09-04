@@ -2,6 +2,7 @@ package com.example.tablicakorkowa
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import androidx.fragment.app.Fragment
@@ -18,6 +19,7 @@ import com.example.tablicakorkowa.databinding.FragmentSingUpBinding
 import com.example.tablicakorkowa.helpers.*
 import com.example.tablicakorkowa.viewmodel.Register
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseUser
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_sing_up.*
 import kotlinx.android.synthetic.main.fragment_sing_up.textInputLayout
@@ -97,7 +99,7 @@ class SingUpFragment : Fragment() {
 
                                 bindRegisterUser(users)
                                 bindUIData()
-
+                                updateUI(user)
 
                             } else {
                                 // If sign in fails, display a message to the user.
@@ -175,6 +177,13 @@ class SingUpFragment : Fragment() {
         } else {
             textInputLayout4.error = null
             false
+        }
+    }
+
+    private fun updateUI(currentUser: FirebaseUser?) {
+        if (currentUser != null){
+            startActivity(Intent(context,MainActivity::class.java))
+            requireActivity().finish()
         }
     }
 }

@@ -13,8 +13,10 @@
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -45,12 +47,12 @@
                     android:id="@+id/detailTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/backgroundSplash"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="16dp"
+                    android:textColor="@color/backgroundSplash"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detailAvatar"
@@ -60,8 +62,10 @@
                     android:id="@+id/detailPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toStartOf="@+id/imageView3"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+                    app:layout_constraintStart_toEndOf="@+id/imageView6"
                     app:layout_constraintTop_toBottomOf="@+id/imageView3"
                     tools:text="Cena
 " />
@@ -83,7 +87,6 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:ems="10"
-                    android:inputType="textPersonName"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detailSubject"
@@ -103,10 +106,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    tools:text="Lokalizacja"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView2"
                     app:layout_constraintStart_toEndOf="@+id/imageView2"
-                    app:layout_constraintTop_toTopOf="@+id/imageView2" />
+                    app:layout_constraintTop_toTopOf="@+id/imageView2"
+                    tools:text="Lokalizacja" />
 
                 <ImageView
                     android:id="@+id/imageView3"
@@ -121,20 +124,20 @@
                     android:id="@+id/detailDrive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Możliwość dojazdu"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView3"
                     app:layout_constraintStart_toStartOf="@+id/detailLocation"
-                    app:layout_constraintTop_toTopOf="@+id/imageView3" />
+                    app:layout_constraintTop_toTopOf="@+id/imageView3"
+                    tools:text="Możliwość dojazdu" />
 
                 <TextView
                     android:id="@+id/detailLevel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    tools:text="Poziom Zaawansowania"
                     app:layout_constraintBottom_toBottomOf="@+id/detailSubject"
                     app:layout_constraintStart_toEndOf="@+id/detailSubject"
-                    app:layout_constraintTop_toTopOf="@+id/detailSubject" />
+                    app:layout_constraintTop_toTopOf="@+id/detailSubject"
+                    tools:text="Poziom Zaawansowania" />
 
                 <TextView
                     android:id="@+id/detailPhone"
@@ -151,7 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toStartOf="@+id/detailPrice"
+                    app:layout_constraintStart_toStartOf="@+id/imageView3"
                     app:layout_constraintTop_toBottomOf="@+id/detailPrice"
                     app:srcCompat="@drawable/ic_baseline_contact_phone_24" />
 
@@ -169,10 +172,45 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    tools:text="Email"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView5"
                     app:layout_constraintStart_toEndOf="@+id/imageView5"
-                    app:layout_constraintTop_toTopOf="@+id/imageView5" />
+                    app:layout_constraintTop_toTopOf="@+id/imageView5"
+                    tools:text="Email" />
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="@+id/imageView3"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView3"
+                    app:srcCompat="@drawable/ic_baseline_monetization_on_24" />
+
+                <Button
+                    android:id="@+id/detailCall"
+                    android:layout_width="0dp"
+                    android:backgroundTint="@color/backgroundSplash"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Zadzwoń"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/detailSendEmail"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detailEmail" />
+
+                <Button
+                    android:id="@+id/detailSendEmail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="Wyślij wiadomość"
+                    android:backgroundTint="@color/backgroundSplash"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/detailCall"
+                    app:layout_constraintTop_toTopOf="@+id/detailCall" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

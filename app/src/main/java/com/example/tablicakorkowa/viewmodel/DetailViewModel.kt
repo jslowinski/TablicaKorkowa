@@ -3,6 +3,8 @@ package com.example.tablicakorkowa.viewmodel
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,6 +19,7 @@ import com.example.tablicakorkowa.helpers.showErrorMessages
 import com.example.tablicakorkowa.helpers.subscribeOnIOThread
 import io.reactivex.disposables.Disposable
 import timber.log.Timber
+import java.lang.Exception
 
 interface DetailViewModelInterface {
     val cards: LiveData<CardsDto>
@@ -99,7 +102,6 @@ class DetailViewModel : ViewModel(), DetailViewModelInterface {
                 }
             )
     }
-
 
     override fun onCleared() {
         disposable?.dispose()
