@@ -6,8 +6,8 @@
 
     <keep_state_fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.tablicakorkowa.HomeFragment"
-        android:label="HomeContainerFragment" />
+        android:name="com.example.tablicakorkowa.HomeContainerFragment"
+        android:label="HomeFragment" />
     <keep_state_fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.tablicakorkowa.DashboardContainerFragment"

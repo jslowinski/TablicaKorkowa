@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_home"
+    app:startDestination="@id/dashboard">
+
+    <fragment
+        android:id="@+id/dashboard"
+        android:name="com.example.tablicakorkowa.DashboardFragment"
+        android:label="DashboardFragment">
+        <action
+            android:id="@+id/action_dashboard_to_detail"
+            app:destination="@id/detail">
+        <argument
+            android:name="cardId"
+            android:defaultValue="empty"
+            app:argType="string" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/detail"
+        android:name="com.example.tablicakorkowa.DetailFragment"
+        android:label="DetailFragment" >
+        <action
+            android:id="@+id/action_detail_to_userCardsFragment"
+            app:destination="@id/userCardsFragment"
+            >
+            <argument
+                android:name="userId"
+                android:defaultValue="empty"
+                app:argType="string" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/userCardsFragment"
+        android:name="com.example.tablicakorkowa.UserCardsFragment"
+        android:label="UserCardsFragment" >
+        <action
+            android:id="@+id/action_userCardsFragment_to_detail"
+            app:destination="@id/detail"
+            app:popUpTo="@id/dashboard">
+            <argument
+                android:name="cardId"
+                android:defaultValue="empty"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <argument
+        android:name="cardId"
+        android:defaultValue="empty"
+        app:argType="string" />
+    <argument
+        android:name="userId"
+        android:defaultValue="empty"
+        app:argType="string" />
+</navigation>
