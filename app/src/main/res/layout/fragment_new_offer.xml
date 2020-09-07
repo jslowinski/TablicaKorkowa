@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".NewOfferFragment">
+
+
+            <ImageButton
+                android:id="@+id/newBackButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/roundcorner"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/newFragmentTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bungee"
+                android:gravity="center"
+                android:text="Dodaj nową ofertę"
+                android:textColor="#000"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/newBackButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/newBackButton"
+                app:layout_constraintTop_toTopOf="@+id/newBackButton" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/newTitle"
+                style="@style/LoginTextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:hint="Tytuł"
+                android:theme="@style/EditTextTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/newFragmentTitle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newTitleEdit"
+                    android:textColor="#000"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/newDesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Opis"
+                app:layout_constraintEnd_toEndOf="@+id/newTitle"
+                app:layout_constraintStart_toStartOf="@+id/newTitle"
+                app:layout_constraintTop_toBottomOf="@id/newTitle"
+                android:layout_marginTop="16dp"
+                style="@style/LoginTextInputLayoutStyle"
+                android:theme="@style/EditTextTheme">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newDescEdit"
+                    android:inputType="textMultiLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="8"
+                    android:gravity="start"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:id="@+id/newSubject"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/newDesc"
+                app:layout_constraintStart_toStartOf="@+id/newDesc"
+                app:layout_constraintTop_toBottomOf="@id/newDesc"
+                app:ms_hint="Przedmiot"
+                app:ms_floatingLabelText="Przedmiot"
+                app:ms_arrowColor="@color/backgroundSplash"
+                app:ms_highlightColor="@color/backgroundSplash"
+                app:ms_errorColor="@android:color/holo_red_dark"
+                />
+
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:id="@+id/newLevel"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                app:layout_constraintEnd_toEndOf="@+id/newDesc"
+                app:layout_constraintStart_toStartOf="@+id/newDesc"
+                app:layout_constraintTop_toBottomOf="@id/newSubject"
+                app:ms_arrowColor="@color/backgroundSplash"
+                app:ms_floatingLabelText="Stopień zaawansowania korepetycjy"
+                app:ms_highlightColor="@color/backgroundSplash"
+                app:ms_hint="Stopień zaawansowania korepetycjy"
+                app:ms_errorColor="@android:color/holo_red_dark"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/newCityLayout"
+                style="@style/LoginTextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Miasto"
+                android:theme="@style/EditTextTheme"
+                app:layout_constraintEnd_toEndOf="@+id/newLevel"
+                app:layout_constraintStart_toStartOf="@+id/newLevel"
+                app:layout_constraintTop_toBottomOf="@+id/newLevel">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/newCity"
+                    style="@style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:id="@+id/newProvinceLayout"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/newCityLayout"
+                app:layout_constraintStart_toStartOf="@+id/newCityLayout"
+                app:layout_constraintTop_toBottomOf="@+id/newCityLayout"
+                app:ms_arrowColor="@color/backgroundSplash"
+                app:ms_errorColor="@android:color/holo_red_dark"
+                app:ms_floatingLabelText="Województwo"
+                app:ms_highlightColor="@color/backgroundSplash"
+                app:ms_hint="Województwo"
+                app:ms_multiline="false" />
+
+            <TextView
+                android:id="@+id/newOnlineText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zajęcia Online"
+                app:layout_constraintBottom_toBottomOf="@+id/newOnline"
+                app:layout_constraintStart_toStartOf="@+id/newCityLayout"
+                app:layout_constraintTop_toTopOf="@+id/newOnline" />
+
+            <CheckBox
+                android:id="@+id/newOnline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Tak"
+                android:theme="@style/RadioButtonStyle"
+                app:layout_constraintStart_toEndOf="@+id/newOnlineText"
+                app:layout_constraintTop_toBottomOf="@+id/newProvinceLayout" />
+
+            <TextView
+                android:id="@+id/newDriveText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Możliwość dojazdu do ucznia:"
+                app:layout_constraintBottom_toBottomOf="@+id/newDeiveCheckBox"
+                app:layout_constraintStart_toStartOf="@+id/newOnlineText"
+                app:layout_constraintTop_toTopOf="@+id/newDeiveCheckBox" />
+
+            <CheckBox
+                android:id="@+id/newDeiveCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Tak"
+                android:theme="@style/RadioButtonStyle"
+                app:layout_constraintStart_toEndOf="@+id/newDriveText"
+                app:layout_constraintTop_toBottomOf="@+id/newOnline" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/newPrice"
+                style="@style/LoginTextInputLayoutStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:hint="Cena"
+                android:theme="@style/EditTextTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/newDeiveCheckBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/newPriceEdit"
+                    android:inputType="numberDecimal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/newAccept"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/backgroundSplash"
+                android:text="Zatwierdź"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/newPrice"
+                app:layout_constraintStart_toStartOf="@+id/newPrice"
+                app:layout_constraintTop_toBottomOf="@+id/newPrice"
+                tools:ignore="HardcodedText" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
+

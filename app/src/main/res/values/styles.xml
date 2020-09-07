@@ -40,6 +40,13 @@
         <item name="colorControlNormal">@color/backgroundSplash</item>
     </style>
 
+    <style name="RadioButtonStyle" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/backgroundSplash</item>
+        <item name="android:textColorSecondary">@color/backgroundSplash</item>
+    </style>
+
+
+
 
     <style name="AppTheme.Launcher">
         <item name="android:windowBackground">@drawable/splash_screen</item>

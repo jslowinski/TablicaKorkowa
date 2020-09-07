@@ -27,7 +27,7 @@ class DetailFragment : Fragment() {
 
     private val viewModel: DetailViewModel by viewModels()
 
-    private val args: NavGraphHomeArgs by navArgs()
+    private val args: NavGraphDashboardArgs by navArgs()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

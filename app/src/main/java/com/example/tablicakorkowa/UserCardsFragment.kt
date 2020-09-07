@@ -31,7 +31,7 @@ class UserCardsFragment : Fragment() {
 
     private lateinit var binding: FragmentUserCardsBinding
 
-    private val args: NavGraphHomeArgs by navArgs()
+    private val args: NavGraphDashboardArgs by navArgs()
 
     private val viewModel: UserCardsViewModel by viewModels()
 
