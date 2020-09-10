@@ -18,6 +18,9 @@
             app:layout_constraintTop_toBottomOf="@+id/apply">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:outlineSpotShadowColor="@color/backgroundSplash"
+                android:outlineAmbientShadowColor="@color/backgroundSplash"
+
                 android:id="@+id/recycler"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

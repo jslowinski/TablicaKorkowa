@@ -17,6 +17,7 @@ import com.example.tablicakorkowa.adapters.UserCardsListAdapter
 import com.example.tablicakorkowa.data.api.model.cards.CardsDto
 import com.example.tablicakorkowa.data.api.model.profile.UserDto
 import com.example.tablicakorkowa.databinding.FragmentUserCardsBinding
+import com.example.tablicakorkowa.helpers.buttonEffect
 import com.example.tablicakorkowa.helpers.hideProgress
 import com.example.tablicakorkowa.helpers.subscribe
 import com.example.tablicakorkowa.viewmodel.UserCardsViewModel
@@ -62,6 +63,12 @@ class UserCardsFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             itemAnimator = null
             adapter = fastAdapter
+        }
+
+        buttonEffect(binding.userCardsBackButton)
+
+        binding.userCardsBackButton.setOnClickListener {
+            findNavController().popBackStack()
         }
 
         mHandler = Handler()

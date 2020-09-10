@@ -14,10 +14,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.tablicakorkowa.data.api.model.cards.CardsDto
+import com.example.tablicakorkowa.data.api.model.levels.LevelDto
 import com.example.tablicakorkowa.data.api.model.profile.UserDto
+import com.example.tablicakorkowa.data.api.model.subjects.SubjectsDto
 import com.example.tablicakorkowa.databinding.FragmentDetailBinding
+import com.example.tablicakorkowa.helpers.buttonEffect
 import com.example.tablicakorkowa.helpers.subscribe
 import com.example.tablicakorkowa.viewmodel.DetailViewModel
+import kotlinx.android.synthetic.main.fragment_detail.*
 import timber.log.Timber
 
 
@@ -43,6 +47,10 @@ class DetailFragment : Fragment() {
     ): View? {
         binding = FragmentDetailBinding.inflate(inflater, container, false)
         bindUIData()
+        buttonEffect(binding.detailBackButton)
+        binding.detailBackButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
         return binding.root
     }
 
@@ -53,6 +61,16 @@ class DetailFragment : Fragment() {
     private fun bindUIData(){
         viewModel.cards.subscribe(this, ::showCardData)
         viewModel.user.subscribe(this, ::showUserData)
+        viewModel.subject.subscribe(this, ::showSubject)
+        viewModel.level.subscribe(this, ::showLevel)
+    }
+
+    private fun showSubject(model: SubjectsDto){
+        binding.detailSubject.text = model.name
+    }
+
+    private fun showLevel(model: LevelDto){
+        binding.detailLevel.text= "poziom: " + model.value
     }
 
     private fun showUserData(model: UserDto) {
@@ -108,11 +126,8 @@ class DetailFragment : Fragment() {
     private fun showCardData(model: CardsDto) {
         binding.detailTitle.text = model.title
         binding.detailPrice.text = model.price.toString() + " zł/h"
-        if ( model.isOnline ) {
-            binding.detailLocation.text = "${model.city}, Online"
-        } else {
-            binding.detailLocation.text = model.city
-        }
+        if ( model.isOnline ) binding.detailLocation.text = "${model.city}, Online" else binding.detailLocation.text = model.city
         binding.detailDesc.text = model.description
+        if (model.isAbleToDrive) binding.detailDrive.text = "Możliwy dojazd do ucznia" else binding.detailDrive.text = "Brak możliwości dojazdu do ucznia"
     }
 }

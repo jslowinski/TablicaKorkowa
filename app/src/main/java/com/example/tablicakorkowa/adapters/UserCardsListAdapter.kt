@@ -26,14 +26,12 @@ open class UserCardsListAdapter (model: CardsDto): ModelAbstractItem<CardsDto, U
 
             itemView.userCardsTitle.text = model.title
             itemView.userCardsCity.text = model.city
-            itemView.userCardsSubject.text = model.subjectName
             itemView.userCardsPrice.text = "${model.price} zł/h"
         }
 
         override fun unbindView(item: UserCardsListAdapter) {
             itemView.userCardsTitle.text = null
             itemView.userCardsCity.text = null
-            itemView.userCardsSubject.text = null
             itemView.userCardsPrice.text = null
         }
     }

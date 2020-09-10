@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.core.view.get
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -17,19 +17,12 @@ import com.example.tablicakorkowa.data.api.model.cards.UpdateCardData
 import com.example.tablicakorkowa.data.api.model.levels.LevelDto
 import com.example.tablicakorkowa.data.api.model.subjects.SubjectsDto
 import com.example.tablicakorkowa.databinding.FragmentNewOfferBinding
-import com.example.tablicakorkowa.helpers.subscribe
-import com.example.tablicakorkowa.helpers.validateSpinnerField
-import com.example.tablicakorkowa.helpers.validateTextField
-import com.example.tablicakorkowa.helpers.validateTextField2
+import com.example.tablicakorkowa.helpers.*
 import com.example.tablicakorkowa.viewmodel.NewOfferViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.gson.Gson
-import fr.ganfra.materialspinner.MaterialSpinner
-import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.fragment_new_offer.*
 import timber.log.Timber
-import java.time.Instant
 
 
 class NewOfferFragment : Fragment() {
@@ -64,6 +57,13 @@ class NewOfferFragment : Fragment() {
     private val subjectId = arrayListOf<String>()
 
     private val args: NavGraphHomeArgs by navArgs()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        if(args.action != "new"){
+            bindUIEdit(args.action)
+        }
+
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,6 +74,14 @@ class NewOfferFragment : Fragment() {
         bindUI()
         bindUIData()
         readJson()
+
+        buttonEffect(binding.newBackButton)
+
+        binding.newBackButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+
 
         if (args.action != "new") {
             bindUIEdit(args.action)
@@ -115,7 +123,6 @@ class NewOfferFragment : Fragment() {
             subjectName.add(it.name)
             subjectId.add(it.id)
         }
-        Timber.e(subjectId.toString())
         val adapter = ArrayAdapter<String>(requireContext(), R.layout.city_list, subjectName)
         binding.newSubject.adapter = adapter
     }
@@ -250,7 +257,6 @@ class NewOfferFragment : Fragment() {
             )
 
             viewModel.updateOffer(id, updateCard, this)
-            Timber.e(updateCard.toString())
         }
     }
 }

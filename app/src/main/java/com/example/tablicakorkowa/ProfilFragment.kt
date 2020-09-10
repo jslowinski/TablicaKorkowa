@@ -1,6 +1,7 @@
 package com.example.tablicakorkowa
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,8 @@ import com.example.tablicakorkowa.data.api.model.profile.UserDto
 import com.example.tablicakorkowa.databinding.FragmentProfilBinding
 import com.example.tablicakorkowa.helpers.*
 import com.example.tablicakorkowa.viewmodel.ProfileViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.jakewharton.rxbinding2.view.clicks
 import com.squareup.picasso.Picasso
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_profil.*
@@ -27,6 +30,8 @@ class ProfilFragment : Fragment() {
 
     private var disposable: Disposable? = null
 
+    private var disposable2: Disposable? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindUIUser()
@@ -39,14 +44,21 @@ class ProfilFragment : Fragment() {
 
         bindUIData()
 
-        binding.profileSaveButton.setOnClickListener{
-            updateUserAction()
-        }
+        disposable = binding.profileSaveButton.clicks()
+            .observeOnMainThread()
+            .subscribe{
+                updateUserAction()
+            }
 
-        binding.profileCancelButton.setOnClickListener {
-            cancelUpdateUser()
-        }
+        disposable2 = binding.profileCancelButton.clicks()
+            .observeOnMainThread()
+            .subscribe {
+                cancelUpdateUser()
+            }
 
+        binding.profileLogout.setOnClickListener {
+            logout()
+        }
 
         return binding.root
     }
@@ -117,8 +129,17 @@ class ProfilFragment : Fragment() {
         profileEditPhoneText.isEnabled = status
     }
 
+    private fun logout() {
+        FirebaseAuth.getInstance().signOut()
+        startActivity(Intent(context, SignInActivity::class.java))
+        requireActivity().finish()
+    }
+
     override fun onPause() {
         disposable?.dispose()
+        disposable2?.dispose()
         super.onPause()
     }
+
+
 }

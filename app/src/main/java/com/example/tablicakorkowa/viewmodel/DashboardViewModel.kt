@@ -1,5 +1,6 @@
 package com.example.tablicakorkowa.viewmodel
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -52,13 +53,16 @@ class DashboardViewModel : ViewModel(), DashboardViewModelInterface{
     private val cardsListData = MutableLiveData<List<CardsListAdapterData>>()
 
     private var disposable: Disposable? = null
-
+    private var disposable2: Disposable? = null
+    private var disposable3: Disposable? = null
+    private var disposable4: Disposable? = null
 //    Methods
 
+    @SuppressLint("CheckResult")
     override fun getAllCards() {
         disposable?.dispose()
 
-        disposable = apiService.getAllCards()
+        apiService.getAllCards()
             .subscribeOnIOThread()
             .observeOnMainThread()
             .showErrorMessages(errorData)
@@ -80,6 +84,34 @@ class DashboardViewModel : ViewModel(), DashboardViewModelInterface{
                                     e -> Timber.e(e)
                                 }
                             )
+
+                        apiService.getSubject(result[i].subjectID)
+                            .subscribeOnIOThread()
+                            .observeOnMainThread()
+                            .showErrorMessages(errorData)
+                            .subscribe(
+                                {r ->
+                                    Timber.e(r[0].name)
+                                    cardsData.value!![i].subjectName = r[0].name
+                                },
+                                {
+                                    e -> Timber.e(e)
+                                }
+                            )
+
+                        apiService.getLevel(result[i].levelId)
+                            .subscribeOnIOThread()
+                            .observeOnMainThread()
+                            .showErrorMessages(errorData)
+                            .subscribe(
+                                {r ->
+                                    Timber.e(r[0].value)
+                                    cardsData.value!![i].levelValue = r[0].value
+                                },
+                                {
+                                        e -> Timber.e(e)
+                                }
+                            )
                     }
                 },
                 {error -> Timber.e(error)}
@@ -93,7 +125,7 @@ class DashboardViewModel : ViewModel(), DashboardViewModelInterface{
 
                 item.model.city.contains(city, ignoreCase = true) and
                 item.model.isOnlineString.contains(isOnline, ignoreCase = true) and
-                item.model.isDriveString.contains(isDrive, ignoreCase = true)
+                item.model.isDriveString.contains(isDrive, ignoreCase = true) //and item.model.subjectName.contains(subject, ignoreCase = true)
             }
     }
 

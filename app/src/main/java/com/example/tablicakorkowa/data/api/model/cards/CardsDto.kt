@@ -48,6 +48,7 @@ data class CardsDto(
     //Data to list
     var userAvatar: String,
     var subjectName: String,
+    var levelValue: String,
     var isOnlineString: String,
     var isDriveString: String
 )

@@ -36,7 +36,7 @@ open class DashboardListAdapter(model: CardsDto) : ModelAbstractItem<CardsDto, D
             itemView.offert_title.text = model.title
             itemView.offert_city.text = model.city
             itemView.offert_price.text = "${model.price} zł"
-            itemView.offert_subject.text = model.subjectID
+            itemView.offert_subject.text = model.subjectName + " poziom " + model.levelValue
 
 //            Picasso.get().load(model.userAvatar).fit().centerCrop().into(itemView.offert_photo)
             model.let { model ->

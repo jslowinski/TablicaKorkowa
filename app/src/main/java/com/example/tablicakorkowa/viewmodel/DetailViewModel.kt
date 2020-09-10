@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import com.example.tablicakorkowa.data.api.ApiClient
 import com.example.tablicakorkowa.data.api.model.cards.CardsDto
 import com.example.tablicakorkowa.data.api.model.cards.CardsListAdapterData
+import com.example.tablicakorkowa.data.api.model.levels.LevelDto
 import com.example.tablicakorkowa.data.api.model.profile.UserDto
 import com.example.tablicakorkowa.data.api.model.subjects.SubjectsDto
 import com.example.tablicakorkowa.helpers.ErrorMessage
@@ -25,9 +26,9 @@ interface DetailViewModelInterface {
     val cards: LiveData<CardsDto>
     val user: LiveData<UserDto>
     val subject: LiveData<SubjectsDto>
+    val level: LiveData<LevelDto>
     val error: LiveData<ErrorMessage>
     fun getCard(id: String)
-    fun getSubject()
 }
 
 class DetailViewModel : ViewModel(), DetailViewModelInterface {
@@ -46,11 +47,15 @@ class DetailViewModel : ViewModel(), DetailViewModelInterface {
     override val error: LiveData<ErrorMessage>
         get() = errorData
 
+    override val level: LiveData<LevelDto>
+        get() = levelData
+
 //    Private
 
     private var cardsData = MutableLiveData<CardsDto>()
     private var userData = MutableLiveData<UserDto>()
     private var subjectsData = MutableLiveData<SubjectsDto>()
+    private var levelData = MutableLiveData<LevelDto>()
     private var errorData = MutableLiveData<ErrorMessage>()
 
     private val apiService by lazy {
@@ -58,6 +63,9 @@ class DetailViewModel : ViewModel(), DetailViewModelInterface {
     }
 
     private var disposable: Disposable? = null
+    private var disposable2: Disposable? = null
+    private var disposable3: Disposable? = null
+    private var disposable4: Disposable? = null
 
 //    Methods
 
@@ -75,6 +83,8 @@ class DetailViewModel : ViewModel(), DetailViewModelInterface {
                     Timber.e(result.toString())
                     cardsData.value = result[0]
                     getUser(result[0].userId)
+                    getSubject(result[0].subjectID)
+                    getLevel(result[0].levelId)
                 },
                 {error ->
                     Timber.e(error)
@@ -82,14 +92,27 @@ class DetailViewModel : ViewModel(), DetailViewModelInterface {
             )
     }
 
-    override fun getSubject() {
-        TODO("Not yet implemented")
+    private fun getSubject(id: String) {
+        disposable2?.dispose()
+
+        disposable2 = apiService.getSubject(id)
+            .subscribeOnIOThread()
+            .observeOnMainThread()
+            .showErrorMessages(errorData)
+            .subscribe(
+                {result ->
+                    subjectsData.value = result[0]
+                },
+                {error ->
+                    Timber.e(error)
+                }
+            )
     }
 
     private fun getUser(id: String) {
-        disposable?.dispose()
+        disposable3?.dispose()
 
-        disposable = apiService.userProfile(id)
+        disposable3 = apiService.userProfile(id)
             .subscribeOnIOThread()
             .observeOnMainThread()
             .showErrorMessages(errorData)
@@ -103,8 +126,28 @@ class DetailViewModel : ViewModel(), DetailViewModelInterface {
             )
     }
 
+    private fun getLevel(id: String) {
+        disposable4?.dispose()
+
+        disposable4 = apiService.getLevel(id)
+            .subscribeOnIOThread()
+            .observeOnMainThread()
+            .showErrorMessages(errorData)
+            .subscribe(
+                {result ->
+                    levelData.value = result[0]
+                },
+                {error ->
+                    Timber.e(error)
+                }
+            )
+    }
+
     override fun onCleared() {
         disposable?.dispose()
+        disposable2?.dispose()
+        disposable3?.dispose()
+        disposable4?.dispose()
         super.onCleared()
     }
 

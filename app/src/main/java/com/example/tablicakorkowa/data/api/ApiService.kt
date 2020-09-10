@@ -43,10 +43,20 @@ interface ApiService {
     @PUT("cards/{id}")
     fun updateCard(@Path("id") id: String?, @Body body: UpdateCardData): Observable<ResponseUpdate>
 
+    @DELETE("cards/{id}")
+    fun deleteCard(@Path("id") id: String?): Observable<ResponseUpdate>
+
 //    Subjects
     @GET("subjects")
     fun getSubjects(): Observable<List<SubjectsDto>>
+
+    @GET("subjects/{id}")
+    fun getSubject(@Path("id") id: String?): Observable<List<SubjectsDto>>
+
 //    Levels
     @GET("levels")
     fun getLevels(): Observable<List<LevelDto>>
+
+    @GET("levels/{id}")
+    fun getLevel(@Path("id") id: String?): Observable<List<LevelDto>>
 }

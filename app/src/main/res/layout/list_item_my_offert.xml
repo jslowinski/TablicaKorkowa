@@ -13,7 +13,8 @@
     app:cardPreventCornerOverlap="false"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    app:layout_constraintTop_toTopOf="parent"
+    android:backgroundTint="@color/cardbackgroud">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -34,25 +35,14 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Tytuł" />
 
-        <TextView
-            android:id="@+id/myCardSubject"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/myCardTitle"
-            tools:text="Przedmiot"/>
 
         <TextView
             android:id="@+id/myCardCity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/myCardSubject"
-            app:layout_constraintStart_toStartOf="@+id/myCardSubject"
-            app:layout_constraintTop_toBottomOf="@+id/myCardSubject"
+            app:layout_constraintEnd_toEndOf="@+id/myCardTitle"
+            app:layout_constraintStart_toStartOf="@+id/myCardTitle"
+            app:layout_constraintTop_toBottomOf="@+id/myCardTitle"
             android:layout_marginTop="8dp"
             tools:text="Miasto"/>
 

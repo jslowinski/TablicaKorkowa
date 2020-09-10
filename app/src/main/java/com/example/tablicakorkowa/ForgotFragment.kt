@@ -3,11 +3,12 @@ package com.example.tablicakorkowa
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Patterns
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.tablicakorkowa.SignInActivity.Companion.auth
 import com.example.tablicakorkowa.databinding.FragmentForgotBinding
 import com.example.tablicakorkowa.helpers.buttonEffect
@@ -22,11 +23,11 @@ class ForgotFragment : Fragment() {
 
         val binding = FragmentForgotBinding.inflate(inflater, container, false)
 
-        binding.forgotButton.setOnClickListener {view : View ->
-            view.findNavController().navigate(ForgotFragmentDirections.actionForgotFragmentToSingInFragment())
+        binding.forgotButton.setOnClickListener {
+            findNavController().popBackStack()
         }
 
-        binding.buttonReset.setOnClickListener {view: View ->
+        binding.buttonReset.setOnClickListener { view: View ->
             when(binding.buttonReset.text) {
                 "Wyślij" -> {
                     doReset()
@@ -38,7 +39,7 @@ class ForgotFragment : Fragment() {
         }
 
 
-        binding.forgotSingIn.setOnClickListener {view: View ->
+        binding.forgotSingIn.setOnClickListener { view: View ->
             when(binding.forgotSingIn.text) {
                 "Wyślij" -> {
                     doReset()

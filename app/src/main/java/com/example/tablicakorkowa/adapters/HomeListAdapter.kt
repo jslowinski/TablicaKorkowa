@@ -26,14 +26,14 @@ open class HomeListAdapter(model: CardsDto) : ModelAbstractItem<CardsDto, HomeLi
 
             itemView.myCardTitle.text = model.title
             itemView.myCardCity.text = model.city
-            itemView.myCardSubject.text = model.subjectName
+
             itemView.myCardPrice.text = "${model.price} zł/h"
         }
 
         override fun unbindView(item: HomeListAdapter) {
             itemView.myCardTitle.text = null
             itemView.myCardCity.text = null
-            itemView.myCardSubject.text = null
+
             itemView.myCardPrice.text = null
         }
     }

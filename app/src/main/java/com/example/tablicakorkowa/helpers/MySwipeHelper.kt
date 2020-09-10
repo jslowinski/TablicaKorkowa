@@ -26,7 +26,6 @@ abstract class MySwipeHelper(context: Context,
     var swipeThreshold = 0.5f
     val buttonBuffer: MutableMap<Int, MutableList<MyButton>>
     lateinit var removeQueue: LinkedList<Int>
-
     abstract fun instantiateMyButton(viewHolder: RecyclerView.ViewHolder,
     buffer: MutableList<MyButton>)
 

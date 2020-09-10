@@ -60,19 +60,6 @@
 
                 </LinearLayout>
 
-                <ImageButton
-                    style="@android:style/Widget.ImageButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="64dp"
-                    android:adjustViewBounds="false"
-                    android:cropToPadding="false"
-                    android:src="@drawable/btn_google_dark_normal"
-                    app:layout_constraintBottom_toBottomOf="@+id/google_button"
-                    app:layout_constraintStart_toEndOf="@+id/google_button"
-                    app:layout_constraintTop_toTopOf="@+id/google_button"
-                    app:layout_constraintVertical_bias="0.0" />
-
                 <TextView
                     android:id="@+id/forgotText"
                     android:layout_width="wrap_content"

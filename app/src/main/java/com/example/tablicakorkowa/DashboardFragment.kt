@@ -66,11 +66,7 @@ class DashboardFragment : Fragment() {
         binding = FragmentDashboardBinding.inflate(inflater, container, false)
         bindUIData()
         fastAdapter.notifyDataSetChanged()
-        binding.recycler.apply {
-            layoutManager = LinearLayoutManager(context)
-            itemAnimator = null
-            adapter = fastAdapter
-        }
+
 
         binding.menuButton.setOnClickListener {
             if (!menuOption){
@@ -81,6 +77,7 @@ class DashboardFragment : Fragment() {
                 binding.apply.visibility = View.VISIBLE
                 binding.textView5.visibility = View.VISIBLE
                 binding.checkBox3.visibility = View.VISIBLE
+                binding.searchList.visibility = View.INVISIBLE
                 menuOption = true
             } else {
                 binding.searchListCity.visibility = View.GONE
@@ -90,6 +87,7 @@ class DashboardFragment : Fragment() {
                 binding.apply.visibility = View.GONE
                 binding.textView5.visibility = View.GONE
                 binding.checkBox3.visibility = View.GONE
+                binding.searchList.visibility = View.VISIBLE
                 menuOption = false
             }
         }
@@ -124,6 +122,7 @@ class DashboardFragment : Fragment() {
     private fun bindUIData() {
         viewModel.cards.subscribe(this, ::addAdapterItem)
         hideProgress(binding.cardsListSwipeRefresh)
+
     }
 
     private fun addAdapterItem(model: List<CardsDto>) {
@@ -133,7 +132,11 @@ class DashboardFragment : Fragment() {
         }
 
         itemAdapter.setNewList(items)
-
+        binding.recycler.apply {
+            layoutManager = LinearLayoutManager(context)
+            itemAnimator = null
+            adapter = fastAdapter
+        }
         fastAdapter.onClickListener = {_, _, item, _ -> onItemClicked(item)}
     }
 
